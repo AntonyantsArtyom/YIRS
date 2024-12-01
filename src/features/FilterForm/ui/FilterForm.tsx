@@ -1,5 +1,6 @@
-import { Modal, Form, Input, Button, InputNumber, Checkbox } from "antd";
+import { Form, Input, InputNumber, Checkbox } from "antd";
 import { useFilterFormStore } from "../model/FilterFormStore";
+import { StyledButton, StyledModal } from "./FilterForm.styles";
 
 interface FilterValues {
   firstName?: string;
@@ -27,24 +28,24 @@ const FilterPopup = ({ onClose, onApplyFilters }: FilterPopupProps) => {
   };
 
   return (
-    <Modal
+    <StyledModal
       title="Фильтры"
       open={filtersOpened}
       onCancel={onClose}
       style={{ maxHeight: "70vh", padding: 0 }}
       bodyStyle={{ padding: "12px" }}
       footer={[
-        <Button key="cancel" onClick={onClose}>
+        <StyledButton key="cancel" onClick={onClose}>
           Отмена
-        </Button>,
-        <Button
+        </StyledButton>,
+        <StyledButton
           key="apply"
           type="primary"
           onClick={() => form.submit()}
           style={{ background: "green" }}
         >
           Применить
-        </Button>,
+        </StyledButton>,
       ]}
     >
       <Form
@@ -106,7 +107,7 @@ const FilterPopup = ({ onClose, onApplyFilters }: FilterPopupProps) => {
           <Checkbox.Group options={["Просрочен", "Не просрочен"]} />
         </Form.Item>
       </Form>
-    </Modal>
+    </StyledModal>
   );
 };
 

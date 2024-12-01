@@ -1,6 +1,7 @@
 export type TCertificate = {
   endDate: string;
   startDate: string;
+  id: string;
 };
 
 export type TStudent = {
@@ -17,6 +18,10 @@ export type TStudent = {
 export interface IStudentsStore {
   students: TStudent[];
   loading: boolean;
-  loadStudents: () => Promise<void>;
+  page: number;
+  size: number;
+  loadStudents: (page?: number) => Promise<void>;
   setBalance: (id: string, newBalance: number) => Promise<void>;
+  setPediculosis: (id: string, date: string) => Promise<void>;
+  setFluorography: (id: string, date: string) => Promise<void>;
 }

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Input, List, Typography, Card } from "antd";
-
-const { Search } = Input;
+import {
+  StyledCard,
+  StyledList,
+  StyledListItem,
+  StyledSearch,
+  StyledTitle,
+} from "./DormitorySelection.styles";
 
 const DormitorySelection = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -18,7 +22,7 @@ const DormitorySelection = () => {
   };
 
   return (
-    <Card
+    <StyledCard
       title="выберите общежитие"
       style={{
         width: 450,
@@ -27,7 +31,7 @@ const DormitorySelection = () => {
         overflowY: "auto",
       }}
     >
-      <Search
+      <StyledSearch
         placeholder="Введите номер общежития"
         allowClear
         enterButton="Найти"
@@ -37,34 +41,40 @@ const DormitorySelection = () => {
 
       {!searchValue ? (
         <>
-          <Typography.Title level={5} style={{ marginTop: 20 }}>
+          <StyledTitle level={5} style={{ marginTop: 20 }}>
             Список общежитий
-          </Typography.Title>
-          <List
+          </StyledTitle>
+          <StyledList
             dataSource={dormList}
             renderItem={(item) => (
-              <List.Item onClick={handleClick} style={{ cursor: "pointer" }}>
+              <StyledListItem
+                onClick={handleClick}
+                style={{ cursor: "pointer" }}
+              >
                 {item}
-              </List.Item>
+              </StyledListItem>
             )}
           />
         </>
       ) : (
         <>
-          <Typography.Title level={5} style={{ marginTop: 20 }}>
+          <StyledTitle level={5} style={{ marginTop: 20 }}>
             Найдено
-          </Typography.Title>
-          <List
+          </StyledTitle>
+          <StyledList
             dataSource={dormList.filter((item) => item.includes(searchValue))}
             renderItem={(item) => (
-              <List.Item onClick={handleClick} style={{ cursor: "pointer" }}>
+              <StyledListItem
+                onClick={handleClick}
+                style={{ cursor: "pointer" }}
+              >
                 {item}
-              </List.Item>
+              </StyledListItem>
             )}
           />
         </>
       )}
-    </Card>
+    </StyledCard>
   );
 };
 
