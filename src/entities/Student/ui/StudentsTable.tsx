@@ -118,8 +118,11 @@ const StudentsTable = () => {
       title: "педикулез (до)",
       dataIndex: ["pediculosis", "endDate"],
       key: "pediculosisEndDate",
-      render: (_, record) =>
-        pediculosisEditingKey === record.id ? (
+      render: (_, record) => {
+        const endDate = record.pediculosis?.endDate;
+        const isExpired = endDate ? new Date(endDate) < new Date() : false; // Проверка на истечение срока
+
+        return pediculosisEditingKey === record.id ? (
           <StyledInput
             value={newPediculosisEndDate ?? ""}
             onChange={handlePediculosisChange}
@@ -128,23 +131,26 @@ const StudentsTable = () => {
           />
         ) : (
           <div
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              handlePediculosisClick(record.id, record.pediculosis?.endDate)
-            }
+            style={{
+              cursor: "pointer",
+              color: isExpired ? "red" : "inherit", // Установка цвета текста в красный, если срок истек
+            }}
+            onClick={() => handlePediculosisClick(record.id, endDate)}
           >
-            {record.pediculosis?.endDate
-              ? new Date(record.pediculosis.endDate).toLocaleDateString()
-              : "нет значения"}
+            {endDate ? new Date(endDate).toLocaleDateString() : "нет значения"}
           </div>
-        ),
+        );
+      },
     },
     {
       title: "флюорография (до)",
       dataIndex: ["fluorography", "endDate"],
       key: "fluorographyEndDate",
-      render: (_, record) =>
-        fluorographyEditingKey === record.id ? (
+      render: (_, record) => {
+        const endDate = record.fluorography?.endDate;
+        const isExpired = endDate ? new Date(endDate) < new Date() : false; // Проверка на истечение срока
+
+        return fluorographyEditingKey === record.id ? (
           <StyledInput
             value={newFluorographyEndDate ?? ""}
             onChange={handleFluorographyChange}
@@ -153,16 +159,16 @@ const StudentsTable = () => {
           />
         ) : (
           <div
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              handleFluorographyClick(record.id, record.fluorography?.endDate)
-            }
+            style={{
+              cursor: "pointer",
+              color: isExpired ? "red" : "inherit", // Установка цвета текста в красный, если срок истек
+            }}
+            onClick={() => handleFluorographyClick(record.id, endDate)}
           >
-            {record.fluorography?.endDate
-              ? new Date(record.fluorography.endDate).toLocaleDateString()
-              : "нет значения"}
+            {endDate ? new Date(endDate).toLocaleDateString() : "нет значения"}
           </div>
-        ),
+        );
+      },
     },
     {
       title: "баланс",
@@ -178,10 +184,13 @@ const StudentsTable = () => {
           />
         ) : (
           <div
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: "pointer",
+              color: value !== null && value <= 0 ? "red" : "inherit", // Установка цвета текста в красный, если баланс неположительный
+            }}
             onClick={() => handleBalanceClick(record.id, value)}
           >
-            {value || "нет значения"}
+            {value !== null ? value : "нет значения"}
           </div>
         ),
     },
