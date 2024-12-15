@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { IStudentsStore, TStudent } from "./types";
 import { useUserStore } from "../../User/model/UserStore";
 import { api } from "../../../shared/api/api";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 export const useStudentsStore = create<IStudentsStore>((set, get) => ({
   page: 1,
@@ -91,5 +93,30 @@ export const useStudentsStore = create<IStudentsStore>((set, get) => ({
 
     const store = useStudentsStore.getState();
     await store.loadStudents(get().page);
+  },
+  exportStudentsToExcel: () => {
+    const { students } = get();
+    const formattedData = students.map((student) => ({
+      ID: student.id,
+      Фамилия: student.lastName,
+      Имя: student.firstName,
+      Отчество: student.middleName,
+      Комната: student.roomNumber,
+      Баланс: student.balance,
+      Флюорография: student.fluorography.endDate,
+      Педикулез: student.pediculosis.endDate,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Студенты");
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+    saveAs(blob, "students.xlsx");
   },
 }));

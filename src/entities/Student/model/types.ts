@@ -24,4 +24,5 @@ export interface IStudentsStore {
   setBalance: (id: string, newBalance: number) => Promise<void>;
   setPediculosis: (id: string, date: string) => Promise<void>;
   setFluorography: (id: string, date: string) => Promise<void>;
+  exportStudentsToExcel: () => void;
 }
