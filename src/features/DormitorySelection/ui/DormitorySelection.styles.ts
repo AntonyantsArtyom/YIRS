@@ -3,7 +3,13 @@ import styled from "styled-components";
 
 export const StyledCard = styled(Card)``;
 
-export const StyledSearch = styled(Input.Search)``;
+export const StyledSearch = styled(Input.Search)`
+  &&& {
+    .ant-input-search-button {
+      background: green;
+    }
+  }
+`;
 
 export const StyledTitle = styled(Typography.Title)``;
 

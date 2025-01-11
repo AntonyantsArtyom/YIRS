@@ -1,6 +1,12 @@
-import { Form, Input, InputNumber, Checkbox } from "antd";
+import { Form } from "antd";
 import { useFilterFormStore } from "../model/FilterFormStore";
-import { StyledButton, StyledModal } from "./FilterForm.styles";
+import {
+  StyledButton,
+  StyledCheckbox,
+  StyledCheckboxContainer,
+  StyledInput,
+  StyledModal,
+} from "./FilterForm.styles";
 
 interface FilterValues {
   firstName?: string;
@@ -59,53 +65,55 @@ const FilterPopup = ({ onClose, onApplyFilters }: FilterPopupProps) => {
           name="firstName"
           style={{ marginBottom: "12px" }}
         >
-          <Input placeholder="Введите имя" />
+          <StyledInput placeholder="Введите имя" />
         </Form.Item>
         <Form.Item
           label="Фамилия"
           name="lastName"
           style={{ marginBottom: "12px" }}
         >
-          <Input placeholder="Введите фамилию" />
+          <StyledInput placeholder="Введите фамилию" />
         </Form.Item>
         <Form.Item
           label="Отчество"
           name="middleName"
           style={{ marginBottom: "12px" }}
         >
-          <Input placeholder="Введите отчество" />
+          <StyledInput placeholder="Введите отчество" />
         </Form.Item>
         <Form.Item
           label="Комната"
           name="roomNumber"
           style={{ marginBottom: "12px" }}
         >
-          <InputNumber
+          <StyledInput
             placeholder="Введите номер комнаты"
             style={{ width: "100%" }}
           />
         </Form.Item>
-        <Form.Item
-          label="Баланс"
-          name="balance"
-          style={{ marginBottom: "12px" }}
-        >
-          <Checkbox.Group options={["Просрочен", "Не просрочен"]} />
-        </Form.Item>
-        <Form.Item
-          label="Педикулез"
-          name="pediculosis"
-          style={{ marginBottom: "12px" }}
-        >
-          <Checkbox.Group options={["Просрочен", "Не просрочен"]} />
-        </Form.Item>
-        <Form.Item
-          label="Флюорография"
-          name="fluorography"
-          style={{ marginBottom: "12px" }}
-        >
-          <Checkbox.Group options={["Просрочен", "Не просрочен"]} />
-        </Form.Item>
+        <StyledCheckboxContainer>
+          <Form.Item
+            label="Баланс"
+            name="balance"
+            style={{ marginBottom: "12px" }}
+          >
+            <StyledCheckbox>просрочен</StyledCheckbox>
+          </Form.Item>
+          <Form.Item
+            label="Педикулез"
+            name="pediculosis"
+            style={{ marginBottom: "12px" }}
+          >
+            <StyledCheckbox>просрочен</StyledCheckbox>
+          </Form.Item>
+          <Form.Item
+            label="Флюорография"
+            name="fluorography"
+            style={{ marginBottom: "12px" }}
+          >
+            <StyledCheckbox>просрочена</StyledCheckbox>
+          </Form.Item>
+        </StyledCheckboxContainer>
       </Form>
     </StyledModal>
   );
